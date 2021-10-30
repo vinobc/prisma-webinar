@@ -1,0 +1,26 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./ssn-fac.db"
+}
+
+model Faculty {
+  id String @id @default(cuid())
+  name String
+  eCode Int
+  exp Int
+  otherResponsibilities OtherResponsibility[]
+}
+
+model OtherResponsibility {
+  id String @id @default(cuid())
+  desc String
+  faculty Faculty @relation(fields: [facId], references: [id])
+  facId String
+}
